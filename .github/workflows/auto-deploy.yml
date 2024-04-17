@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  deploy-owlbot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+  
+      - name: Connect to server and update code
+        uses: actions/ssh@v3
+        with:
+          host: "${{ secrets.OWL_SERVER_IP }}"
+          user: "${{ secrets.OWL_SERVER_USER }}"
+          script: |
+            git pull origin master
+
+      - name: Restart service
+        run: |
+          sudo systemctl restart "${{ secrets.OWLBOT_SERVICE_NAME }}"
