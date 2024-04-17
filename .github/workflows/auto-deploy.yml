@@ -16,8 +16,8 @@ jobs:
       - name: Connect to server and update code
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: "${{ secrets.OWL_SERVER_IP }}"
-          username: "${{ secrets.OWL_SERVER_USER }}"
+          host: "${{ secrets.OWLBOT_SERVER_IP }}"
+          username: "${{ secrets.OWLBOT_SERVER_USER }}"
           script: |
             git pull origin master
 
