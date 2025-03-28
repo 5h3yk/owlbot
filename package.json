@@ -4,7 +4,7 @@
   "description": "Un chouette bot !",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "upcom": "node deploy-commands.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +21,7 @@
   "dependencies": {
     "discord.js": "^14.18.0",
     "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.9",
     "sharp": "^0.33.5"
   },
   "devDependencies": {
