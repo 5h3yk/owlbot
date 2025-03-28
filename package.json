@@ -1,0 +1,30 @@
+{
+  "name": "owlbot",
+  "version": "1.0.0",
+  "description": "Un chouette bot !",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "upcom": "node deploy-commands.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/5h3yk/owlbot.git"
+  },
+  "author": "Sh3yk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/5h3yk/owlbot/issues"
+  },
+  "homepage": "https://github.com/5h3yk/owlbot#readme",
+  "dependencies": {
+    "discord.js": "^14.18.0",
+    "node-fetch": "^3.3.2",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "eslint": "^9.23.0"
+  }
+}
