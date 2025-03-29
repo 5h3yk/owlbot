@@ -8,47 +8,48 @@ const fs = require('node:fs');
 const reactionsPath = path.join(__dirname, '../data/reactions.json');
 let reactionsMap;
 try {
-	reactionsMap = JSON.parse(fs.readFileSync(reactionsPath, 'utf-8'));
+    reactionsMap = JSON.parse(fs.readFileSync(reactionsPath, 'utf-8'));
 } catch (error) {
-	console.error('Erreur lors du chargement de reactions.json :', error);
-	process.exit(1);
+    console.error('Erreur lors du chargement de reactions.json :', error);
+    process.exit(1);
 }
 
 function reactToMessage(message) {
-	const lowerCaseMessage = message.content.toLowerCase();
-	const messageAsArray = lowerCaseMessage.split(' ');
+    const lowerCaseMessage = message.content.toLowerCase();
+    const messageAsArray = lowerCaseMessage.split(' ');
 
-	for (const { triggers, reaction } of reactionsMap) {
-		if (triggers.some(trigger => {
-			if (trigger.includes(' ')) {
-				return lowerCaseMessage.includes(trigger);
-			}
-			return messageAsArray.includes(trigger);
-		})) {
-			message.react(reaction).catch(console.error);
-		}
-	}
+    for (const { triggers, reaction } of reactionsMap) {
+        if (triggers.some(trigger => {
+            if (trigger.includes(' ')) {
+                return lowerCaseMessage.includes(trigger);
+            }
+            return messageAsArray.includes(trigger);
+        })) {
+            message.react(reaction).catch(console.error);
+        }
+    }
 }
 
 /**
  * Oui, vraiment :)
  */
 function feurIt(message) {
-	const content = message.content.trim().toLowerCase();
-	if (content.endsWith('quoi')) {
-		const random = Math.floor(Math.random() * 100) + 1;
-		const response = random === 1 ? '**COUBEH**' : '**FEUR**';
-		message.reply(response).catch(console.error);
-	}
+    const content = message.content.trim().toLowerCase();
+    if (content.endsWith('quoi')) {
+        const random = Math.floor(Math.random() * 100) + 1;
+        const response = random === 1 ? '**COUBEH**' : '**FEUR**';
+        message.reply(response).catch(console.error);
+    }
 }
 
 module.exports = {
-	name: Events.MessageCreate,
-	/**
+    name: Events.MessageCreate,
+
+    /**
      * @param {Message} message
      */
-	async execute(message) {
-		reactToMessage(message);
-		feurIt(message);
-	},
+    async execute(message) {
+        reactToMessage(message);
+        feurIt(message);
+    },
 };

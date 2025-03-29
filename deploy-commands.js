@@ -16,32 +16,32 @@ const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
-	const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file);
-		const command = require(filePath);
-		if ('data' in command && 'execute' in command) {
-			commands.push(command.data.toJSON());
-		} else {
-			console.log(`[WARN] La commande ${filePath} manque d'une propriété "data" ou "execute".`);
-		}
-	}
+    const commandsPath = path.join(foldersPath, folder);
+    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+    for (const file of commandFiles) {
+        const filePath = path.join(commandsPath, file);
+        const command = require(filePath);
+        if ('data' in command && 'execute' in command) {
+            commands.push(command.data.toJSON());
+        } else {
+            console.log(`[WARN] La commande ${filePath} manque d'une propriété "data" ou "execute".`);
+        }
+    }
 }
 
 const rest = new REST().setToken(token);
 
 (async () => {
-	try {
-		console.log(`Rafraîchissement des ${commands.length} commandes slash (/).`);
+    try {
+        console.log(`Rafraîchissement des ${commands.length} commandes slash (/).`);
 
-		const data = await rest.put(
-			Routes.applicationGuildCommands(applicationId, guildId),
-			{ body: commands },
-		);
+        const data = await rest.put(
+            Routes.applicationGuildCommands(applicationId, guildId),
+            { body: commands },
+        );
 
-		console.log(`${data.length} commandes slash (/) ont bien été mises à jour !`);
-	} catch (error) {
-		console.error(error);
-	}
+        console.log(`${data.length} commandes slash (/) ont bien été mises à jour !`);
+    } catch (error) {
+        console.error(error);
+    }
 })();
