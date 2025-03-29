@@ -15,8 +15,9 @@ try {
 }
 
 function reactToMessage(message) {
+    messageAsArray = message.content.toLowerCase().split(' ');
     for (const { triggers, reaction } of reactionsMap) {
-        if (triggers.some(trigger => message.content.toLowerCase().includes(trigger))) {
+        if (triggers.some(trigger => messageAsArray.includes(trigger))) {
             message.react(reaction).catch(console.error);
         }
     }
