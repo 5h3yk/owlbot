@@ -26,6 +26,13 @@ module.exports = {
 
             const data = await response.json();
 
+            if (data.media_type === 'video') {
+                await interaction.editReply(
+                    `L'astronomy picture of the day est une vidéo ! "${data.title}" | 🔗 ${data.url}`
+                );
+                return;
+            }
+
             const imageResponse = await fetch(data.url);
             if (!imageResponse.ok) {
                 throw new Error(`Impossible de télécharger l'image: ${imageResponse.status}`);
