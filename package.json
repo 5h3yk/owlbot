@@ -6,7 +6,9 @@
   "scripts": {
     "start": "nodemon index.js",
     "upcom": "node deploy-commands.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write \"**/*.{js,ts,jsx,tsx}\"",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
-    "eslint": "^9.23.0"
+    "eslint": "^9.23.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": "prettier --write"
   }
 }
